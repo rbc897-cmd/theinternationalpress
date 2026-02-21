@@ -1,0 +1,143 @@
+﻿node.exe : 
+2026-02-10T21:18:38Z INF 
+Thank you for trying 
+Cloudflare Tunnel. Doing 
+so, without a Cloudflare 
+account, is a quick way 
+to experiment and try it 
+out. However, be aware 
+that these account-less 
+Tunnels have no uptime 
+guarantee, are subject to 
+the Cloudflare Online 
+Services Terms of Use (htt
+ps://www.cloudflare.com/we
+bsite-terms/), and 
+Cloudflare reserves the 
+right to investigate your 
+use of Tunnels for 
+violations of such terms. 
+If you intend to use 
+Tunnels in production you 
+should use a pre-created 
+named tunnel by 
+following: https://develop
+ers.cloudflare.com/cloudfl
+are-one/connections/connec
+t-apps
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (2  
+  026-02-10T21:1...ns/c   
+ onnect-apps:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+2026-02-10T21:18:38Z INF 
+Requesting new quick 
+Tunnel on 
+trycloudflare.com...
+2026-02-10T21:18:42Z INF +
+--------------------------
+--------------------------
+--------------------------
+--------------+
+2026-02-10T21:18:42Z INF 
+|  Your quick Tunnel has 
+been created! Visit it at 
+(it may take some time to 
+be reachable):  |
+2026-02-10T21:18:42Z INF 
+|  https://comfort-throw-m
+it-primarily.trycloudflare
+.com                      
+               |
+2026-02-10T21:18:42Z INF +
+--------------------------
+--------------------------
+--------------------------
+--------------+
+2026-02-10T21:18:42Z INF 
+Cannot determine default 
+configuration path. No 
+file [config.yml 
+config.yaml] in 
+[~/.cloudflared 
+~/.cloudflare-warp 
+~/cloudflare-warp]
+2026-02-10T21:18:42Z INF 
+Version 2026.2.0 
+(Checksum b3279f2186a1c3c4
+38ad5865e802bbbec26090c5d3
+fdb4ac1113f1143a94837a)
+2026-02-10T21:18:42Z INF 
+GOOS: windows, GOVersion: 
+go1.24.13, GoArch: amd64
+2026-02-10T21:18:42Z INF 
+Settings: 
+map[ha-connections:1 
+protocol:quic 
+url:http://localhost:3000]
+2026-02-10T21:18:42Z INF 
+cloudflared will not 
+automatically update on 
+Windows systems.
+2026-02-10T21:18:42Z INF 
+Generated Connector ID: cd
+02d758-e6e7-422f-a4ad-1451
+21027d34
+2026-02-10T21:18:42Z INF 
+Initial protocol quic
+2026-02-10T21:18:42Z INF 
+ICMP proxy will use 
+10.42.182.227 as source 
+for IPv4
+2026-02-10T21:18:42Z INF 
+ICMP proxy will use 
+fe80::b919:f4f3:1af1:5067 
+in zone WiFi as source 
+for IPv6
+2026-02-10T21:18:42Z INF 
+cloudflared does not 
+support loading the 
+system root certificate 
+pool on Windows. Please 
+use --origin-ca-pool 
+<PATH> to specify the 
+path to the certificate 
+pool
+2026-02-10T21:18:42Z INF 
+ICMP proxy will use 
+10.42.182.227 as source 
+for IPv4
+2026-02-10T21:18:42Z INF 
+Tunnel connection curve 
+preferences: 
+[X25519MLKEM768 
+CurveP256] connIndex=0 
+event=0 ip=198.41.200.53
+2026-02-10T21:18:42Z INF 
+ICMP proxy will use 
+fe80::b919:f4f3:1af1:5067 
+in zone WiFi as source 
+for IPv6
+2026-02-10T21:18:42Z INF 
+Starting metrics server 
+on 127.0.0.1:20244/metrics
+2026-02-10T21:18:43Z INF 
+Registered tunnel 
+connection connIndex=0 con
+nection=440bedf6-8f94-4f75
+-8c81-600cc936ee9c 
+event=0 ip=198.41.200.53 
+location=mad05 
+protocol=quic
