@@ -2,7 +2,7 @@ import { insforge } from '@/lib/insforge';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import DOMPurify from 'isomorphic-dompurify';
+
 import { Clock, Calendar, ChevronRight, ArrowLeft, Facebook, Twitter, Share2, Link2, User } from 'lucide-react';
 
 const getContent = (obj: any, lang: string, field: string) => {
@@ -318,7 +318,7 @@ export default async function ArticlePage({ params }: Props) {
                         prose-ul:my-6 prose-li:text-neutral-700
                         prose-code:text-[var(--primary-700)] prose-code:bg-[var(--primary-50)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-medium
                     ">
-                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(articleContent) }} />
+                        <div dangerouslySetInnerHTML={{ __html: articleContent }} />
                     </div>
 
                     {/* ── BOTTOM SHARE & NAVIGATION ── */}
