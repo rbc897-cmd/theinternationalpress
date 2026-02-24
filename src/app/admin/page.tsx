@@ -55,7 +55,7 @@ export default function AdminDashboard() {
         <div className="space-y-8">
             <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold text-gray-800 tracking-tight">Overview</h2>
-                <Link href="/admin/posts/new" className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                <Link href="/admin/posts/new" className="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium hover:bg-gray-900 transition-colors shadow-sm">
                     <Plus size={18} />
                     New Article
                 </Link>
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                         title="Total Articles"
                         value={stats.totalPosts}
                         icon={FileText}
-                        color="blue"
+                        color="gray"
                         trend="+12%"
                         trendUp={true}
                     />
@@ -99,7 +99,7 @@ export default function AdminDashboard() {
                 <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
                     <div className="p-6 border-b border-gray-100 flex justify-between items-center">
                         <h3 className="font-bold text-gray-800">Recent Articles</h3>
-                        <Link href="/admin/posts" className="text-sm text-blue-600 hover:text-blue-700 font-medium">View All</Link>
+                        <Link href="/admin/posts" className="text-sm text-gray-600 hover:text-gray-800 font-medium">View All</Link>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -115,14 +115,14 @@ export default function AdminDashboard() {
                                     <tr key={post.id} className="hover:bg-gray-50 transition-colors group">
                                         <td className="px-6 py-4">
                                             <Link href={`/admin/posts/${post.id}`} className="block">
-                                                <p className="font-medium text-gray-800 line-clamp-1 group-hover:text-blue-600 transition-colors">{post.title_en || 'Untitled'}</p>
+                                                <p className="font-medium text-gray-800 line-clamp-1 group-hover:text-gray-600 transition-colors">{post.title_en || 'Untitled'}</p>
                                                 <p className="text-xs text-gray-400 mt-1 line-clamp-1">{post.excerpt_en || 'No excerpt'}</p>
                                             </Link>
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${post.status === 'published'
-                                                    ? 'bg-green-100 text-green-800'
-                                                    : 'bg-yellow-100 text-yellow-800'
+                                                ? 'bg-green-100 text-green-800'
+                                                : 'bg-yellow-100 text-yellow-800'
                                                 }`}>
                                                 {post.status === 'published' ? 'Published' : 'Draft'}
                                             </span>
@@ -150,9 +150,9 @@ export default function AdminDashboard() {
                         <h3 className="font-bold text-gray-800">Quick Actions</h3>
                     </div>
                     <div className="p-6 flex-1 space-y-4">
-                        <Link href="/admin/posts/new" className="block p-4 border border-gray-100 rounded-lg hover:border-blue-200 hover:bg-blue-50 transition-all group">
+                        <Link href="/admin/posts/new" className="block p-4 border border-gray-100 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-all group">
                             <div className="flex items-center gap-3 mb-2">
-                                <div className="p-2 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-200 transition-colors">
+                                <div className="p-2 bg-gray-100 text-gray-700 rounded-lg group-hover:bg-gray-200 transition-colors">
                                     <TrendingUp size={20} />
                                 </div>
                                 <span className="font-semibold text-gray-700">Write New Article</span>
@@ -160,9 +160,9 @@ export default function AdminDashboard() {
                             <p className="text-sm text-gray-500">Draft a new post for your blog.</p>
                         </Link>
 
-                        <Link href="/admin/settings" className="block p-4 border border-gray-100 rounded-lg hover:border-purple-200 hover:bg-purple-50 transition-all group">
+                        <Link href="/admin/settings" className="block p-4 border border-gray-100 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-all group">
                             <div className="flex items-center gap-3 mb-2">
-                                <div className="p-2 bg-purple-100 text-purple-600 rounded-lg group-hover:bg-purple-200 transition-colors">
+                                <div className="p-2 bg-gray-100 text-gray-700 rounded-lg group-hover:bg-gray-200 transition-colors">
                                     <Eye size={20} />
                                 </div>
                                 <span className="font-semibold text-gray-700">Manage Settings</span>

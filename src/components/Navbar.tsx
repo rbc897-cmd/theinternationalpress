@@ -126,7 +126,7 @@ export default function Navbar({ lang }: { lang: string }) {
                     <div className="flex h-16 items-center justify-between">
                         {/* Logo */}
                         <Link href={`/${lang}`} className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--primary-600)] to-[var(--primary-800)] flex items-center justify-center shadow-lg shadow-blue-900/20">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--primary-600)] to-[var(--primary-800)] flex items-center justify-center shadow-lg shadow-black/10">
                                 <span className="text-white font-bold text-lg">T</span>
                             </div>
                             <div className="hidden sm:block">

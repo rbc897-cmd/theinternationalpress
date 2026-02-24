@@ -170,7 +170,7 @@ export default function AdminSettingsPage() {
 
     if (loading || profileLoading) return (
         <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
         </div>
     )
 
@@ -189,7 +189,7 @@ export default function AdminSettingsPage() {
                     {/* Profile Card */}
                     <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3 bg-gray-50/50">
-                            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                            <div className="p-2 bg-gray-100 text-gray-700 rounded-lg">
                                 <User size={20} />
                             </div>
                             <h2 className="font-bold text-gray-700">Profile</h2>
@@ -213,12 +213,12 @@ export default function AdminSettingsPage() {
                                         type="text"
                                         value={profile.full_name || ''}
                                         onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-                                        className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all text-sm"
+                                        className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
                                     />
                                 </div>
                                 <button
                                     onClick={handleProfileUpdate}
-                                    className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98]"
+                                    className="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98]"
                                 >
                                     <Save size={18} />
                                     Save Changes
@@ -230,7 +230,7 @@ export default function AdminSettingsPage() {
                     {/* Security Card */}
                     <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3 bg-gray-50/50">
-                            <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                            <div className="p-2 bg-gray-100 text-gray-700 rounded-lg">
                                 <Lock size={20} />
                             </div>
                             <h2 className="font-bold text-gray-700">Security</h2>
@@ -243,7 +243,7 @@ export default function AdminSettingsPage() {
                                     type="password"
                                     value={passwordData.newPassword}
                                     onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all text-sm"
+                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
                                     placeholder="Min 6 characters"
                                 />
                             </div>
@@ -253,7 +253,7 @@ export default function AdminSettingsPage() {
                                     type="password"
                                     value={passwordData.confirmPassword}
                                     onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all text-sm"
+                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
                                 />
                             </div>
 
@@ -293,7 +293,7 @@ export default function AdminSettingsPage() {
                                 }}
                                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${showAdd
                                     ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                                    : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm shadow-blue-200 hover:shadow-md'
+                                    : 'bg-gray-800 text-white hover:bg-gray-900 shadow-sm shadow-gray-300 hover:shadow-md'
                                     }`}
                             >
                                 {showAdd ? <X size={16} /> : <Plus size={16} />}
@@ -303,10 +303,10 @@ export default function AdminSettingsPage() {
 
                         {/* Add Form */}
                         {showAdd && (
-                            <div className="p-6 bg-blue-50/30 border-b border-blue-100 animate-in slide-in-from-top-2 duration-200">
+                            <div className="p-6 bg-gray-50/50 border-b border-gray-200 animate-in slide-in-from-top-2 duration-200">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
-                                    <h3 className="text-xs font-bold text-blue-800 uppercase tracking-widest">New Category</h3>
+                                    <div className="w-1 h-4 bg-gray-800 rounded-full"></div>
+                                    <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest">New Category</h3>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
@@ -317,7 +317,7 @@ export default function AdminSettingsPage() {
                                             value={formData.name_en}
                                             onChange={(e) => setFormData(prev => ({ ...prev, name_en: e.target.value }))}
                                             placeholder="e.g. Politics"
-                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                         />
                                     </div>
                                     <div className="md:col-span-4 space-y-1.5">
@@ -327,7 +327,7 @@ export default function AdminSettingsPage() {
                                             value={formData.name_ne}
                                             onChange={(e) => setFormData(prev => ({ ...prev, name_ne: e.target.value }))}
                                             placeholder="e.g. राजनीति"
-                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                         />
                                     </div>
                                     <div className="md:col-span-3 space-y-1.5">
@@ -337,13 +337,13 @@ export default function AdminSettingsPage() {
                                             value={formData.slug}
                                             onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                                             placeholder="politics"
-                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                            className="w-full px-3 py-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                         />
                                     </div>
                                     <div className="md:col-span-1">
                                         <button
                                             onClick={handleAdd}
-                                            className="w-full flex items-center justify-center bg-blue-600 text-white h-[38px] rounded-md hover:bg-blue-700 transition-colors shadow-sm"
+                                            className="w-full flex items-center justify-center bg-gray-800 text-white h-[38px] rounded-md hover:bg-gray-900 transition-colors shadow-sm"
                                             title="Save Category"
                                         >
                                             <Check size={18} />
@@ -365,7 +365,7 @@ export default function AdminSettingsPage() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
                                     {categories.map((cat) => (
-                                        <tr key={cat.id} className="hover:bg-blue-50/30 transition-colors group">
+                                        <tr key={cat.id} className="hover:bg-gray-50 transition-colors group">
                                             {editingId === cat.id ? (
                                                 <>
                                                     <td className="px-4 py-3">
@@ -373,7 +373,7 @@ export default function AdminSettingsPage() {
                                                             type="text"
                                                             value={formData.name_en}
                                                             onChange={(e) => setFormData(prev => ({ ...prev, name_en: e.target.value }))}
-                                                            className="w-full px-3 py-1.5 bg-white border border-blue-300 rounded focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                                            className="w-full px-3 py-1.5 bg-white border border-gray-300 rounded focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                                             autoFocus
                                                         />
                                                     </td>
@@ -382,7 +382,7 @@ export default function AdminSettingsPage() {
                                                             type="text"
                                                             value={formData.name_ne}
                                                             onChange={(e) => setFormData(prev => ({ ...prev, name_ne: e.target.value }))}
-                                                            className="w-full px-3 py-1.5 bg-white border border-blue-300 rounded focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                                            className="w-full px-3 py-1.5 bg-white border border-gray-300 rounded focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                                         />
                                                     </td>
                                                     <td className="px-4 py-3">
@@ -390,7 +390,7 @@ export default function AdminSettingsPage() {
                                                             type="text"
                                                             value={formData.slug}
                                                             onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                                                            className="w-full px-3 py-1.5 bg-white border border-blue-300 rounded focus:ring-2 focus:ring-blue-100 outline-none text-sm shadow-sm"
+                                                            className="w-full px-3 py-1.5 bg-white border border-gray-300 rounded focus:ring-2 focus:ring-gray-200 outline-none text-sm shadow-sm"
                                                         />
                                                     </td>
                                                     <td className="px-4 py-3 text-right">
@@ -417,7 +417,7 @@ export default function AdminSettingsPage() {
                                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
                                                             <button
                                                                 onClick={() => startEdit(cat)}
-                                                                className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                                                                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded transition-colors"
                                                                 title="Edit"
                                                             >
                                                                 <Pencil size={16} />

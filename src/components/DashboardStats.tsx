@@ -9,15 +9,15 @@ interface DashboardStatsProps {
     color?: string
 }
 
-export default function DashboardStats({ title, value, icon: Icon, trend, trendUp, color = "blue" }: DashboardStatsProps) {
+export default function DashboardStats({ title, value, icon: Icon, trend, trendUp, color = "gray" }: DashboardStatsProps) {
     const colorClasses = {
-        blue: "bg-blue-50 text-blue-600",
+        gray: "bg-gray-100 text-gray-700",
         green: "bg-green-50 text-green-600",
         yellow: "bg-yellow-50 text-yellow-600",
-        purple: "bg-purple-50 text-purple-600"
+        purple: "bg-gray-100 text-gray-700"
     }
 
-    const activeColorClass = colorClasses[color as keyof typeof colorClasses] || colorClasses.blue
+    const activeColorClass = colorClasses[color as keyof typeof colorClasses] || colorClasses.gray
 
     return (
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">

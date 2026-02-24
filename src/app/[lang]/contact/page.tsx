@@ -141,10 +141,10 @@ export default function ContactPage({ params }: { params: Promise<{ lang: string
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
                         {t.heroTitle}
                     </h1>
-                    <p className="text-lg md:text-xl text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
                         {t.heroSubtitle}
                     </p>
-                    <p className="text-sm text-blue-200/70 max-w-xl mx-auto">
+                    <p className="text-sm text-white/60 max-w-xl mx-auto">
                         {t.heroDescription}
                     </p>
                 </div>

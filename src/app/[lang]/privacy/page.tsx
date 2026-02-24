@@ -204,13 +204,13 @@ export default async function PrivacyPage({ params }: Props) {
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
                         {t.heroTitle}
                     </h1>
-                    <p className="text-lg md:text-xl text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
                         {t.heroSubtitle}
                     </p>
-                    <p className="text-sm text-blue-200/70 max-w-xl mx-auto">
+                    <p className="text-sm text-white/60 max-w-xl mx-auto">
                         {t.heroDescription}
                     </p>
-                    <div className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-blue-200/60">
+                    <div className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-white/50">
                         {t.lastUpdated}
                     </div>
                 </div>
@@ -268,7 +268,7 @@ export default async function PrivacyPage({ params }: Props) {
                     <p className="text-neutral-600 max-w-lg mx-auto">{t.contactText}</p>
                     <a
                         href={`/${lang}/contact`}
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white rounded-xl transition-all duration-200 shadow-lg shadow-blue-900/20 hover:shadow-xl"
+                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white rounded-xl transition-all duration-200 shadow-lg shadow-black/10 hover:shadow-xl"
                         style={{ background: 'linear-gradient(135deg, var(--primary-600), var(--primary-700))' }}
                     >
                         {t.contactButton}

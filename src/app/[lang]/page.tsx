@@ -229,7 +229,7 @@ export default async function Home({ params }: Props) {
                       className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
@@ -333,7 +333,7 @@ export default async function Home({ params }: Props) {
                     className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
@@ -341,7 +341,7 @@ export default async function Home({ params }: Props) {
                   <span className="inline-block px-2 py-0.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold rounded-full mb-2 border border-white/10">
                     {getContent(post.category, lang, 'name')}
                   </span>
-                  <h3 className="text-lg font-bold text-white leading-snug mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors">
+                  <h3 className="text-lg font-bold text-white leading-snug mb-2 line-clamp-2 group-hover:text-gray-200 transition-colors">
                     <Link href={`/${lang}/news/${getContent(post, lang, 'slug')}`}>
                       <span className="absolute inset-0"></span>
                       {getContent(post, lang, 'title')}

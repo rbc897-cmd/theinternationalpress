@@ -237,7 +237,7 @@ export default function PostForm({ post }: { post?: any }) {
                             value={formData.title_en}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                         />
                     </div>
                     <div>
@@ -248,7 +248,7 @@ export default function PostForm({ post }: { post?: any }) {
                             value={formData.slug_en}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                         />
                     </div>
                 </div>
@@ -259,7 +259,7 @@ export default function PostForm({ post }: { post?: any }) {
                         value={formData.excerpt_en}
                         onChange={handleChange}
                         rows={2}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                     />
                 </div>
                 <div>
@@ -282,7 +282,7 @@ export default function PostForm({ post }: { post?: any }) {
                             name="title_ne"
                             value={formData.title_ne}
                             onChange={handleChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                         />
                     </div>
                     <div>
@@ -292,7 +292,7 @@ export default function PostForm({ post }: { post?: any }) {
                             name="slug_ne"
                             value={formData.slug_ne}
                             onChange={handleChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                         />
                     </div>
                 </div>
@@ -303,7 +303,7 @@ export default function PostForm({ post }: { post?: any }) {
                         value={formData.excerpt_ne}
                         onChange={handleChange}
                         rows={2}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2"
                     />
                 </div>
                 <div>
@@ -324,7 +324,7 @@ export default function PostForm({ post }: { post?: any }) {
                         <button
                             type="button"
                             onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white text-left flex items-center justify-between"
+                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2 bg-white text-left flex items-center justify-between"
                         >
                             <span className="text-gray-600 truncate">
                                 {selectedCategories.length === 0
@@ -340,9 +340,9 @@ export default function PostForm({ post }: { post?: any }) {
                                 {selectedCategories.map(catId => {
                                     const cat = categories.find(c => c.id === catId)
                                     return cat ? (
-                                        <span key={catId} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span key={catId} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">
                                             {cat.name_en}
-                                            <button type="button" onClick={() => toggleCategory(catId)} className="hover:text-blue-600">
+                                            <button type="button" onClick={() => toggleCategory(catId)} className="hover:text-gray-600">
                                                 <X size={12} />
                                             </button>
                                         </span>
@@ -363,7 +363,7 @@ export default function PostForm({ post }: { post?: any }) {
                                             type="checkbox"
                                             checked={selectedCategories.includes(cat.id)}
                                             onChange={() => toggleCategory(cat.id)}
-                                            className="h-4 w-4 text-blue-600 border-gray-300 rounded mr-3"
+                                            className="h-4 w-4 text-gray-800 border-gray-300 rounded mr-3"
                                         />
                                         <span className="text-gray-800">{cat.name_en}</span>
                                         <span className="text-gray-400 ml-1">({cat.name_ne})</span>
@@ -378,7 +378,7 @@ export default function PostForm({ post }: { post?: any }) {
                             name="status"
                             value={formData.status}
                             onChange={handleChange}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm border p-2 bg-white"
                         >
                             <option value="draft">Draft</option>
                             <option value="published">Published</option>
@@ -401,7 +401,7 @@ export default function PostForm({ post }: { post?: any }) {
                     type="submit"
                     disabled={loading}
                     onClick={() => setFormData(prev => ({ ...prev, status: 'draft' }))}
-                    className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                 >
                     <Save size={18} className="mr-2" />
                     {loading ? 'Saving...' : 'Save Draft'}

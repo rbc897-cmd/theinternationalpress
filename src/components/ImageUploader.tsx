@@ -128,7 +128,7 @@ export default function ImageUploader({
                             className="w-full h-full rounded-full border-2 border-dashed border-gray-300 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
                         >
                             {uploading ? (
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
                             ) : (
                                 <div className="text-gray-400 flex flex-col items-center">
                                     <Upload size={24} className="mb-1" />
@@ -174,12 +174,12 @@ export default function ImageUploader({
                     <label htmlFor="file-upload" className="cursor-pointer w-full flex flex-col items-center">
                         <div className="space-y-1 text-center">
                             {uploading ? (
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
                             ) : (
                                 <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
                             )}
                             <div className="flex text-sm text-gray-600">
-                                <span className="relative rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                <span className="relative rounded-md font-medium text-gray-800 hover:text-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-500">
                                     {uploading ? 'Uploading...' : 'Upload a file'}
                                 </span>
                             </div>

@@ -183,7 +183,7 @@ export default function RichTextEditor({ content, onChange, editable = true }: R
             Link.configure({
                 openOnClick: false,
                 HTMLAttributes: {
-                    class: 'text-blue-600 underline',
+                    class: 'text-gray-800 underline',
                 },
             }),
         ],
@@ -206,7 +206,7 @@ export default function RichTextEditor({ content, onChange, editable = true }: R
     }, [content, editor])
 
     return (
-        <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+        <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-gray-400 focus-within:border-transparent">
             {editable && <MenuBar editor={editor} />}
             <EditorContent editor={editor} className="prose max-w-none p-4 min-h-[200px] outline-none" />
         </div>

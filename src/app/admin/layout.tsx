@@ -42,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
         </div>
     }
 
@@ -68,8 +68,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
                 <div className="h-16 flex items-center px-6 border-b border-gray-100">
-                    <div className="flex items-center gap-2 font-bold text-xl text-blue-900 tracking-tight">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm">T</div>
+                    <div className="flex items-center gap-2 font-bold text-xl text-gray-900 tracking-tight">
+                        <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-white text-sm">T</div>
                         The International Press
                     </div>
                     <button
@@ -91,11 +91,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                    ? 'bg-blue-600 text-white shadow-md shadow-blue-200'
-                                    : 'text-gray-500 hover:bg-blue-50 hover:text-blue-600'
+                                    ? 'bg-gray-800 text-white shadow-md shadow-gray-300'
+                                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-800'
                                     }`}
                             >
-                                <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-blue-600'} />
+                                <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-800'} />
                                 <span className="font-medium">{item.name}</span>
                             </Link>
                         )
@@ -111,7 +111,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 className="w-10 h-10 rounded-full object-cover border border-gray-200"
                             />
                         ) : (
-                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold">
                                 {profile?.full_name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase()}
                             </div>
                         )}
@@ -147,7 +147,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <Link href="/" target="_blank" className="text-sm text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-3 py-1.5 rounded-full transition-colors">
+                        <Link href="/" target="_blank" className="text-sm text-gray-700 hover:text-gray-900 font-medium bg-gray-100 px-3 py-1.5 rounded-full transition-colors">
                             View Site
                         </Link>
                     </div>

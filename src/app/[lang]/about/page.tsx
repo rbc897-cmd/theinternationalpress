@@ -101,10 +101,10 @@ export default async function AboutPage({ params }: Props) {
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
                         {t.heroTitle}
                     </h1>
-                    <p className="text-lg md:text-xl text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
                         {t.heroSubtitle}
                     </p>
-                    <p className="text-sm text-blue-200/70 max-w-xl mx-auto">
+                    <p className="text-sm text-white/60 max-w-xl mx-auto">
                         {t.heroDescription}
                     </p>
                 </div>
@@ -157,7 +157,7 @@ export default async function AboutPage({ params }: Props) {
                         {t.stats.map((stat, idx) => (
                             <div key={idx} className="text-center space-y-1">
                                 <div className="text-3xl md:text-4xl font-extrabold tracking-tight">{stat.value}</div>
-                                <div className="text-sm text-blue-100/80 font-medium">{stat.label}</div>
+                                <div className="text-sm text-white/70 font-medium">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -195,7 +195,7 @@ export default async function AboutPage({ params }: Props) {
                     <p className="text-neutral-600 max-w-lg mx-auto">{t.ctaText}</p>
                     <a
                         href={`/${lang}/contact`}
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white rounded-xl transition-all duration-200 shadow-lg shadow-blue-900/20 hover:shadow-xl"
+                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white rounded-xl transition-all duration-200 shadow-lg shadow-black/10 hover:shadow-xl"
                         style={{ background: 'linear-gradient(135deg, var(--primary-600), var(--primary-700))' }}
                     >
                         {t.ctaButton}

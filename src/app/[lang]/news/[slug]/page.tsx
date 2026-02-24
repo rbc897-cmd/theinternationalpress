@@ -240,7 +240,7 @@ export default async function ArticlePage({ params }: Props) {
                                     {title}
                                 </h1>
                                 {excerpt && (
-                                    <p className="mt-4 text-base md:text-lg text-blue-100/70 max-w-2xl leading-relaxed line-clamp-2">
+                                    <p className="mt-4 text-base md:text-lg text-white/70 max-w-2xl leading-relaxed line-clamp-2">
                                         {excerpt}
                                     </p>
                                 )}
@@ -254,7 +254,7 @@ export default async function ArticlePage({ params }: Props) {
                     {/* ── AUTHOR & META BAR ── */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 border-b border-neutral-200 mb-10">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary-500)] to-[var(--primary-700)] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-900/20">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary-500)] to-[var(--primary-700)] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-black/10">
                                 {(post.author?.full_name || 'A')[0].toUpperCase()}
                             </div>
                             <div>
@@ -282,7 +282,7 @@ export default async function ArticlePage({ params }: Props) {
                                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`/${lang}/news/${slug}`)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full bg-neutral-100 hover:bg-blue-500 text-neutral-500 hover:text-white flex items-center justify-center transition-all duration-200"
+                                className="w-9 h-9 rounded-full bg-neutral-100 hover:bg-neutral-800 text-neutral-500 hover:text-white flex items-center justify-center transition-all duration-200"
                                 aria-label={`${t.shareOn} Facebook`}
                             >
                                 <Facebook className="w-4 h-4" />
@@ -291,7 +291,7 @@ export default async function ArticlePage({ params }: Props) {
                                 href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`/${lang}/news/${slug}`)}&text=${encodeURIComponent(title)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 rounded-full bg-neutral-100 hover:bg-sky-500 text-neutral-500 hover:text-white flex items-center justify-center transition-all duration-200"
+                                className="w-9 h-9 rounded-full bg-neutral-100 hover:bg-neutral-800 text-neutral-500 hover:text-white flex items-center justify-center transition-all duration-200"
                                 aria-label={`${t.shareOn} Twitter`}
                             >
                                 <Twitter className="w-4 h-4" />
@@ -333,7 +333,7 @@ export default async function ArticlePage({ params }: Props) {
                                         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`/${lang}/news/${slug}`)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-11 h-11 rounded-xl bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+                                        className="w-11 h-11 rounded-xl bg-neutral-800 text-white flex items-center justify-center hover:bg-neutral-700 hover:shadow-lg hover:shadow-black/15 transition-all duration-200"
                                         aria-label={`${t.shareOn} Facebook`}
                                     >
                                         <Facebook className="w-5 h-5" />
@@ -342,7 +342,7 @@ export default async function ArticlePage({ params }: Props) {
                                         href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`/${lang}/news/${slug}`)}&text=${encodeURIComponent(title)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-11 h-11 rounded-xl bg-sky-400 text-white flex items-center justify-center hover:bg-sky-500 hover:shadow-lg hover:shadow-sky-400/25 transition-all duration-200"
+                                        className="w-11 h-11 rounded-xl bg-neutral-700 text-white flex items-center justify-center hover:bg-neutral-600 hover:shadow-lg hover:shadow-black/15 transition-all duration-200"
                                         aria-label={`${t.shareOn} Twitter`}
                                     >
                                         <Twitter className="w-5 h-5" />

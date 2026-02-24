@@ -67,7 +67,7 @@ export default function AdminPostsPage() {
                 <h1 className="text-2xl font-bold text-gray-800">Articles</h1>
                 <Link
                     href="/admin/posts/new"
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-900 font-medium transition-colors"
                 >
                     <Plus size={18} />
                     Create New
@@ -104,7 +104,7 @@ export default function AdminPostsPage() {
                                     {new Date(post.created_at).toLocaleDateString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <Link href={`/admin/posts/${post.id}`} className="text-blue-600 hover:text-blue-900 mr-4">
+                                    <Link href={`/admin/posts/${post.id}`} className="text-gray-600 hover:text-gray-900 mr-4">
                                         <Pencil size={18} className="inline" />
                                     </Link>
                                     <button onClick={() => handleDelete(post.id)} className="text-red-600 hover:text-red-900">

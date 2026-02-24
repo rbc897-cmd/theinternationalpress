@@ -26,8 +26,8 @@ export default function LanguageToggle({ lang }: { lang: string }) {
             <button
                 onClick={() => switchLanguage('en')}
                 className={`px-2 py-1 rounded transition-colors ${lang === 'en'
-                        ? 'bg-blue-600 text-white font-semibold'
-                        : 'text-gray-600 hover:bg-gray-100'
+                    ? 'bg-black text-white font-semibold'
+                    : 'text-gray-600 hover:bg-gray-100'
                     }`}
                 aria-label="Switch to English"
             >
@@ -37,8 +37,8 @@ export default function LanguageToggle({ lang }: { lang: string }) {
             <button
                 onClick={() => switchLanguage('ne')}
                 className={`px-2 py-1 rounded transition-colors ${lang === 'ne'
-                        ? 'bg-blue-600 text-white font-semibold'
-                        : 'text-gray-600 hover:bg-gray-100'
+                    ? 'bg-black text-white font-semibold'
+                    : 'text-gray-600 hover:bg-gray-100'
                     }`}
                 aria-label="Switch to Nepali"
             >
