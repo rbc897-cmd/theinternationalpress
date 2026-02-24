@@ -157,11 +157,6 @@ export default function Footer({ lang }: { lang: string }) {
                 {/* Bottom Bar */}
                 <div className="border-t border-neutral-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
                     <p>&copy; {currentYear} The International Press. {t.rights}</p>
-                    <p className="flex items-center gap-2">
-                        {lang === 'ne' ? 'नेपालबाट प्रेमले बनाइएको' : 'Made with'}
-                        <span className="text-red-500">❤️</span>
-                        {lang === 'ne' ? '' : 'from Nepal'}
-                    </p>
                 </div>
             </div>
         </footer>

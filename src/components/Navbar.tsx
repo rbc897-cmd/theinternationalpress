@@ -167,8 +167,8 @@ export default function Navbar({ lang }: { lang: string }) {
 
                         {/* Right Section */}
                         <div className="flex items-center gap-2">
-                            {/* Search Bar */}
-                            <div className="relative flex items-center">
+                            {/* Search Bar - hidden on mobile since mobile menu has its own search */}
+                            <div className="relative hidden xl:flex items-center">
                                 <button
                                     onClick={() => setIsSearchOpen(!isSearchOpen)}
                                     className="p-2 text-neutral-600 hover:bg-neutral-100 rounded-full transition-colors"
