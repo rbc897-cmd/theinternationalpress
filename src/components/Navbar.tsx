@@ -1,35 +1,61 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import LanguageToggle from './LanguageToggle'
-import { Menu, X, Search } from 'lucide-react'
+import { Menu, X, Search, ChevronDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-const categories = [
-    // News Group
-    { en: 'Nepal', ne: 'नेपाल', href: '/category/nepal', group: 'news' },
-    { en: 'World', ne: 'विश्व', href: '/category/world', group: 'news' },
-    { en: 'Politics', ne: 'राजनीति', href: '/category/politics', group: 'news' },
-    { en: 'Business', ne: 'व्यापार', href: '/category/business', group: 'news' },
-    { en: 'Markets', ne: 'बजार', href: '/category/markets', group: 'news' },
-    { en: 'Health', ne: 'स्वास्थ्य', href: '/category/health', group: 'news' },
-    { en: 'Tech', ne: 'प्रविधि', href: '/category/tech', group: 'news' },
-    { en: 'Entertainment', ne: 'मनोरञ्जन', href: '/category/entertainment', group: 'news' },
-    { en: 'Style', ne: 'शैली', href: '/category/style', group: 'news' },
-    { en: 'Travel', ne: 'यात्रा', href: '/category/travel', group: 'news' },
-    { en: 'Sports', ne: 'खेलकुद', href: '/category/sports', group: 'news' },
-    { en: 'Science', ne: 'विज्ञान', href: '/category/science', group: 'news' },
-    { en: 'Climate', ne: 'जलवायु', href: '/category/climate', group: 'news' },
+type NavItem = {
+    en: string
+    ne: string
+    href: string
+    children?: NavItem[]
+}
 
-    // Media Group (Kept as separate group but maybe merged into dropdown later if needed, user only asked to remove Visa Info)
-    { en: 'Watch', ne: 'हेर्नुहोस्', href: '/watch', group: 'media' },
-    { en: 'Listen', ne: 'सुन्नुहोस्', href: '/listen', group: 'media' },
+const navItems: NavItem[] = [
+    { en: 'Home', ne: 'गृहपृष्ठ', href: '/' },
+    {
+        en: 'Nepal', ne: 'नेपाल', href: '/nepal',
+        children: [
+            { en: 'Politics', ne: 'राजनीति', href: '/nepal/politics' },
+            { en: 'Economy', ne: 'अर्थतन्त्र', href: '/nepal/economy' },
+            { en: 'Opinion', ne: 'विचार', href: '/nepal/opinion' },
+            { en: 'Technology', ne: 'प्रविधि', href: '/nepal/technology' },
+            { en: 'Lifestyle', ne: 'जीवनशैली', href: '/nepal/lifestyle' },
+        ]
+    },
+    {
+        en: 'World', ne: 'विश्व', href: '/world',
+        children: [
+            { en: 'Asia', ne: 'एशिया', href: '/world/asia' },
+            { en: 'Europe', ne: 'युरोप', href: '/world/europe' },
+            { en: 'Americas', ne: 'अमेरिका', href: '/world/americas' },
+            { en: 'Middle East', ne: 'मध्यपूर्व', href: '/world/middle-east' },
+            { en: 'Africa', ne: 'अफ्रिका', href: '/world/africa' },
+            { en: 'Global Institutions', ne: 'विश्व संस्था', href: '/world/global-institutions' },
+        ]
+    },
+    { en: 'Politics', ne: 'राजनीति', href: '/politics' },
+    { en: 'Economy', ne: 'अर्थतन्त्र', href: '/economy' },
+    { en: 'Business', ne: 'व्यवसाय', href: '/business' },
+    { en: 'Climate', ne: 'जलवायु', href: '/climate' },
+    { en: 'Science', ne: 'विज्ञान', href: '/science' },
+    { en: 'Opinion', ne: 'विचार', href: '/opinion' },
+    {
+        en: 'Media', ne: 'मिडिया', href: '/media',
+        children: [
+            { en: 'Watch', ne: 'हेर्नुहोस्', href: '/media/watch' },
+            { en: 'Listen', ne: 'सुन्नुहोस्', href: '/media/listen' },
+        ]
+    },
 ]
 
 export default function Navbar({ lang }: { lang: string }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+    const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const router = useRouter()
@@ -37,20 +63,14 @@ export default function Navbar({ lang }: { lang: string }) {
     const dict = {
         en: {
             home: 'Home',
-            news: 'News',
-            media: 'Media',
             about: 'About',
             contact: 'Contact',
-            categories: 'Categories',
             searchPlaceholder: 'Search news...'
         },
         ne: {
             home: 'गृहपृष्ठ',
-            news: 'समाचार',
-            media: 'मिडिया',
             about: 'हाम्रो बारेमा',
             contact: 'सम्पर्क',
-            categories: 'श्रेणीहरू',
             searchPlaceholder: 'समाचार खोज्नुहोस्...'
         }
     }
@@ -66,108 +86,99 @@ export default function Navbar({ lang }: { lang: string }) {
         }
     }
 
-    const renderDropdown = (groupName: string, label: string) => {
-        const items = categories.filter(cat => cat.group === groupName)
-        // Check if this is the "news" group to apply specific styling
-        const isNewsGroup = groupName === 'news'
+    const getLabel = (item: NavItem) => lang === 'ne' ? item.ne : item.en
 
-        return (
-            <div
-                className="relative group"
-                onMouseEnter={() => setActiveDropdown(groupName)}
-                onMouseLeave={() => setActiveDropdown(null)}
-            >
-                <button className="flex items-center gap-1 text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors py-6">
-                    {label}
-                    <svg className={`w-4 h-4 transition-transform ${activeDropdown === groupName ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
+    const renderDesktopItem = (item: NavItem) => {
+        // Home link — simple
+        if (item.href === '/') {
+            return (
+                <Link
+                    key={item.en}
+                    href={`/${lang}`}
+                    className="text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors"
+                >
+                    {getLabel(item)}
+                </Link>
+            )
+        }
 
-                {activeDropdown === groupName && (
-                    <div
-                        className={`absolute top-full border-t bg-white/95 backdrop-blur-md border border-neutral-100 shadow-xl py-6 z-50 animate-in fade-in slide-in-from-top-2 ${isNewsGroup
-                            ? 'left-1/2 -translate-x-1/2 w-[800px] rounded-b-xl border-t-0 mt-1'
-                            : 'left-0 w-48 rounded-b-xl border-t-0'
-                            }`}
-                    >
-                        <div className={`${isNewsGroup ? 'px-6' : ''}`}>
-                            <div className={`grid ${isNewsGroup ? 'grid-cols-4 gap-4' : 'grid-cols-1 gap-1'}`}>
-                                {items.map((item, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href={`/${lang}${item.href}`}
-                                        className={`
-                                            ${isNewsGroup
-                                                ? 'px-4 py-3 rounded-xl hover:bg-[var(--primary-50)] group/item border border-transparent hover:border-[var(--primary-100)]'
-                                                : 'px-4 py-2 hover:bg-[var(--primary-50)]'
-                                            }
-                                            text-sm text-neutral-700 hover:text-[var(--primary-700)] transition-all flex items-center gap-3
-                                        `}
-                                    >
-                                        <span className="font-medium">{lang === 'ne' ? item.ne : item.en}</span>
-                                    </Link>
-                                ))}
-                            </div>
+        // Items with dropdowns
+        if (item.children && item.children.length > 0) {
+            return (
+                <div
+                    key={item.en}
+                    className="relative group"
+                    onMouseEnter={() => setActiveDropdown(item.en)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                >
+                    <button className="flex items-center gap-1 text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors py-6">
+                        {getLabel(item)}
+                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === item.en ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {activeDropdown === item.en && (
+                        <div className="absolute top-full left-0 bg-white/95 backdrop-blur-md border border-neutral-100 shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 w-56 rounded-b-xl border-t-0 mt-1">
+                            {/* Parent category link */}
+                            <Link
+                                href={`/${lang}${item.href}`}
+                                className="block px-4 py-2.5 text-sm font-semibold text-[var(--primary-700)] hover:bg-[var(--primary-50)] transition-colors border-b border-neutral-100 mb-1"
+                            >
+                                {lang === 'ne' ? `सबै ${getLabel(item)}` : `All ${getLabel(item)}`}
+                            </Link>
+                            {item.children.map((child) => (
+                                <Link
+                                    key={child.en}
+                                    href={`/${lang}${child.href}`}
+                                    className="block px-4 py-2.5 text-sm text-neutral-700 hover:text-[var(--primary-700)] hover:bg-[var(--primary-50)] transition-all"
+                                >
+                                    {getLabel(child)}
+                                </Link>
+                            ))}
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            )
+        }
+
+        // Plain link (no dropdown)
+        return (
+            <Link
+                key={item.en}
+                href={`/${lang}${item.href}`}
+                className="text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors"
+            >
+                {getLabel(item)}
+            </Link>
         )
     }
 
     return (
         <header className="sticky top-0 z-50 w-full">
-
-
             {/* Main Navigation */}
             <nav className="bg-white/95 backdrop-blur-md border-b border-neutral-200 shadow-sm relative z-40">
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="flex h-16 items-center justify-between">
                         {/* Logo */}
                         <Link href={`/${lang}`} className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--primary-600)] to-[var(--primary-800)] flex items-center justify-center shadow-lg shadow-black/10">
-                                <span className="text-white font-bold text-lg">T</span>
-                            </div>
-                            <div className="hidden sm:block">
-                                <span className="text-xl font-bold tracking-tight text-[var(--primary-900)]">
-                                    {lang === 'ne' ? 'दि इन्टरनेसनल प्रेस' : 'The International Press'}
-                                </span>
-                                <span className="block text-xs text-neutral-500 -mt-1">
-                                    {lang === 'ne' ? 'समाचार पोर्टल' : 'News Portal'}
-                                </span>
-                            </div>
+                            <svg viewBox="0 0 180 55" className="h-10 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <rect x="45" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <rect x="90" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <text x="20" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">T</text>
+                                <text x="65" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">I</text>
+                                <text x="110" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">P</text>
+                                <text x="0" y="53" fontFamily="Inter, Arial, sans-serif" fontWeight="700" fontSize="9" letterSpacing="1" fill="#171717">THE INTERNATIONAL PRESS</text>
+                            </svg>
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <nav className="hidden xl:flex items-center gap-8">
-                            <Link
-                                href={`/${lang}`}
-                                className="text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors"
-                            >
-                                {t.home}
-                            </Link>
-
-                            {renderDropdown('news', t.news)}
-                            {renderDropdown('media', t.media)}
-
-                            <Link
-                                href={`/${lang}/about`}
-                                className="text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors"
-                            >
-                                {t.about}
-                            </Link>
-                            <Link
-                                href={`/${lang}/contact`}
-                                className="text-sm font-semibold text-neutral-700 hover:text-[var(--primary-600)] transition-colors"
-                            >
-                                {t.contact}
-                            </Link>
+                        <nav className="hidden xl:flex items-center gap-6">
+                            {navItems.map((item) => renderDesktopItem(item))}
                         </nav>
 
                         {/* Right Section */}
                         <div className="flex items-center gap-2">
-                            {/* Search Bar - hidden on mobile since mobile menu has its own search */}
+                            {/* Search Bar */}
                             <div className="relative hidden xl:flex items-center">
                                 <button
                                     onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -213,9 +224,9 @@ export default function Navbar({ lang }: { lang: string }) {
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
                     <div className="xl:hidden bg-white border-t border-neutral-100 max-h-[80vh] overflow-y-auto">
-                        <div className="container mx-auto px-4 py-6 space-y-6">
+                        <div className="container mx-auto px-4 py-6 space-y-1">
                             {/* Mobile Search */}
-                            <form onSubmit={handleSearch} className="px-4">
+                            <form onSubmit={handleSearch} className="px-2 mb-4">
                                 <div className="relative">
                                     <input
                                         id="mobile-search"
@@ -230,49 +241,79 @@ export default function Navbar({ lang }: { lang: string }) {
                                 </div>
                             </form>
 
-                            <Link
-                                href={`/${lang}`}
-                                className="block text-lg font-bold text-neutral-800 px-4"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                {t.home}
-                            </Link>
+                            {navItems.map((item) => {
+                                if (item.href === '/') {
+                                    return (
+                                        <Link
+                                            key={item.en}
+                                            href={`/${lang}`}
+                                            className="block text-base font-bold text-neutral-800 px-3 py-3 rounded-lg hover:bg-neutral-50"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            {getLabel(item)}
+                                        </Link>
+                                    )
+                                }
 
-                            {/* Groups in Mobile Menu - Removed info group */}
-                            {[
-                                { id: 'news', label: t.news },
-                                { id: 'media', label: t.media }
-                            ].map(group => (
-                                <div key={group.id} className="space-y-3 px-4">
-                                    <h4 className="text-xs font-black text-neutral-400 uppercase tracking-widest">
-                                        {group.label}
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {categories.filter(c => c.group === group.id).map((item, idx) => (
-                                            <Link
-                                                key={idx}
-                                                href={`/${lang}${item.href}`}
-                                                className="text-sm text-neutral-600 py-1"
-                                                onClick={() => setMobileMenuOpen(false)}
+                                if (item.children && item.children.length > 0) {
+                                    const isExpanded = mobileExpanded === item.en
+                                    return (
+                                        <div key={item.en} className="border-b border-neutral-50">
+                                            <button
+                                                className="flex items-center justify-between w-full text-base font-bold text-neutral-800 px-3 py-3 rounded-lg hover:bg-neutral-50"
+                                                onClick={() => setMobileExpanded(isExpanded ? null : item.en)}
                                             >
-                                                {lang === 'ne' ? item.ne : item.en}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+                                                {getLabel(item)}
+                                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                                            </button>
+                                            {isExpanded && (
+                                                <div className="pl-4 pb-2 space-y-1">
+                                                    <Link
+                                                        href={`/${lang}${item.href}`}
+                                                        className="block text-sm font-semibold text-[var(--primary-600)] px-3 py-2 rounded-lg hover:bg-[var(--primary-50)]"
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                    >
+                                                        {lang === 'ne' ? `सबै ${getLabel(item)}` : `All ${getLabel(item)}`}
+                                                    </Link>
+                                                    {item.children.map((child) => (
+                                                        <Link
+                                                            key={child.en}
+                                                            href={`/${lang}${child.href}`}
+                                                            className="block text-sm text-neutral-600 px-3 py-2 rounded-lg hover:bg-neutral-50"
+                                                            onClick={() => setMobileMenuOpen(false)}
+                                                        >
+                                                            {getLabel(child)}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )
+                                }
 
-                            <div className="pt-4 border-t border-neutral-100 space-y-4 px-4">
+                                return (
+                                    <Link
+                                        key={item.en}
+                                        href={`/${lang}${item.href}`}
+                                        className="block text-base font-bold text-neutral-800 px-3 py-3 rounded-lg hover:bg-neutral-50"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {getLabel(item)}
+                                    </Link>
+                                )
+                            })}
+
+                            <div className="pt-4 border-t border-neutral-100 space-y-1 mt-2">
                                 <Link
                                     href={`/${lang}/about`}
-                                    className="block text-neutral-700 font-medium"
+                                    className="block text-neutral-700 font-medium px-3 py-2"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {t.about}
                                 </Link>
                                 <Link
                                     href={`/${lang}/contact`}
-                                    className="block text-neutral-700 font-medium"
+                                    className="block text-neutral-700 font-medium px-3 py-2"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {t.contact}

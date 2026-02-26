@@ -1,5 +1,6 @@
 import { insforge } from '@/lib/insforge';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { MOCK_POSTS } from '@/lib/mock-data';
 
@@ -71,10 +72,13 @@ export default async function Home({ params }: Props) {
         {featuredPost ? (
           <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden group">
             {featuredPost.featured_image ? (
-              <img
+              <Image
                 src={featuredPost.featured_image}
                 alt={getContent(featuredPost, lang, 'title')}
-                className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-800)] to-[var(--primary-950)]" />
@@ -147,11 +151,13 @@ export default async function Home({ params }: Props) {
             {recentPosts.map((post: any) => (
               <article key={post.id} className="article-card">
                 {post.featured_image ? (
-                  <div className="h-52 overflow-hidden">
-                    <img
+                  <div className="h-52 overflow-hidden relative">
+                    <Image
                       src={post.featured_image}
                       alt={getContent(post, lang, 'title')}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transform hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                 ) : (
@@ -223,10 +229,12 @@ export default async function Home({ params }: Props) {
               {nepalPosts[0] && (
                 <article className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                   {nepalPosts[0].featured_image ? (
-                    <img
+                    <Image
                       src={nepalPosts[0].featured_image}
                       alt={getContent(nepalPosts[0], lang, 'title')}
-                      className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                     />
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800" />
@@ -261,10 +269,12 @@ export default async function Home({ params }: Props) {
                 <article key={post.id} className="flex gap-4 group items-start">
                   <div className="relative w-32 h-24 flex-shrink-0 rounded-xl overflow-hidden">
                     {post.featured_image ? (
-                      <img
+                      <Image
                         src={post.featured_image}
                         alt={getContent(post, lang, 'title')}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        sizes="128px"
+                        className="object-cover transform group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="w-full h-full bg-neutral-200 flex items-center justify-center text-2xl">🇳🇵</div>
@@ -327,10 +337,12 @@ export default async function Home({ params }: Props) {
             {worldPosts.map((post: any) => (
               <article key={post.id} className="group relative h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                 {post.featured_image ? (
-                  <img
+                  <Image
                     src={post.featured_image}
                     alt={getContent(post, lang, 'title')}
-                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800" />
@@ -373,7 +385,7 @@ export default async function Home({ params }: Props) {
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             {lang === 'ne' ? 'न्यूजलेटर सब्सक्राइब गर्नुहोस्' : 'Subscribe to Our Newsletter'}
           </h2>
-          <p className="text-primary-200 mb-8">
+          <p className="text-neutral-300 mb-8">
             {lang === 'ne'
               ? 'युरोप भिसा र आप्रवासन सम्बन्धी नवीनतम अपडेट सिधै तपाईंको इमेलमा पाउनुहोस्।'
               : 'Get the latest updates on Europe visa and immigration directly to your inbox.'}

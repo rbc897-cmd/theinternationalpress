@@ -1,7 +1,6 @@
 import NewsTicker from '@/components/NewsTicker';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import '../globals.css';
 
 type Props = {
   children: React.ReactNode

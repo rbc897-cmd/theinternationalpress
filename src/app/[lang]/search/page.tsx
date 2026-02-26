@@ -1,5 +1,6 @@
 import { insforge } from '@/lib/insforge';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = {
     params: Promise<{ lang: string }>;
@@ -68,11 +69,13 @@ export default async function SearchPage({ params, searchParams }: Props) {
                         {posts.map((post) => (
                             <article key={post.id} className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-neutral-100">
                                 {post.featured_image && (
-                                    <div className="w-full md:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden">
-                                        <img
+                                    <div className="w-full md:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden relative">
+                                        <Image
                                             src={post.featured_image}
                                             alt={getContent(post, lang, 'title')}
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 192px"
+                                            className="object-cover"
                                         />
                                     </div>
                                 )}

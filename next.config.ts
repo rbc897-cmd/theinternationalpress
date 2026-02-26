@@ -16,13 +16,24 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**.insforge.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.insforge.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
+  compress: true,
 };
 
 export default nextConfig;

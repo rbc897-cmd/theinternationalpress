@@ -3,11 +3,9 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
-    subsets: ['latin', 'latin-ext'],
-    weight: ['400', '500', '600', '700'],
+    subsets: ['latin'],
     variable: '--font-inter',
     display: 'swap',
-    preload: true,
 });
 
 export const metadata: Metadata = {

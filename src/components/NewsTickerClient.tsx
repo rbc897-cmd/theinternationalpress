@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Post } from '@/utils/types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // Define the shape of props
 interface NewsTickerClientProps {

@@ -1,5 +1,6 @@
 import { insforge } from '@/lib/insforge';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 
 const getContent = (obj: any, lang: string, field: string) => {
@@ -66,11 +67,13 @@ export default async function NewsListing({ params }: Props) {
                     {posts.map((post: any) => (
                         <article key={post.id} className="article-card group">
                             {post.featured_image ? (
-                                <div className="h-56 overflow-hidden">
-                                    <img
+                                <div className="h-56 overflow-hidden relative">
+                                    <Image
                                         src={post.featured_image}
                                         alt={getContent(post, lang, 'title')}
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        className="object-cover transform group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             ) : (

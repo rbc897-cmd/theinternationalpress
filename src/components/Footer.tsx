@@ -1,17 +1,16 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const categories = [
-    { en: 'Nepal', ne: 'नेपाल', href: '/category/nepal' },
-    { en: 'World', ne: 'विश्व', href: '/category/world' },
-    { en: 'Politics', ne: 'राजनीति', href: '/category/politics' },
-    { en: 'Business', ne: 'व्यापार', href: '/category/business' },
-    { en: 'Tech', ne: 'प्रविधि', href: '/category/tech' },
-    { en: 'Science', ne: 'विज्ञान', href: '/category/science' },
-    { en: 'Sports', ne: 'खेलकुद', href: '/category/sports' },
-    { en: 'Style', ne: 'शैली', href: '/category/style' },
-    { en: 'Entertainment', ne: 'मनोरञ्जन', href: '/category/entertainment' },
-    { en: 'Climate', ne: 'जलवायु', href: '/category/climate' },
-    { en: 'Travel', ne: 'यात्रा', href: '/category/travel' },
+    { en: 'Nepal', ne: 'नेपाल', href: '/nepal' },
+    { en: 'World', ne: 'विश्व', href: '/world' },
+    { en: 'Politics', ne: 'राजनीति', href: '/politics' },
+    { en: 'Economy', ne: 'अर्थतन्त्र', href: '/economy' },
+    { en: 'Business', ne: 'व्यवसाय', href: '/business' },
+    { en: 'Climate', ne: 'जलवायु', href: '/climate' },
+    { en: 'Science', ne: 'विज्ञान', href: '/science' },
+    { en: 'Opinion', ne: 'विचार', href: '/opinion' },
+    { en: 'Media', ne: 'मिडिया', href: '/media' },
 ]
 
 const socialLinks = [
@@ -59,12 +58,17 @@ export default function Footer({ lang }: { lang: string }) {
                     {/* Brand Column */}
                     <div className="lg:col-span-1">
                         <Link href={`/${lang}`} className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--primary-500)] to-[var(--primary-700)] flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">T</span>
-                            </div>
-                            <span className="text-xl font-bold">
-                                {lang === 'ne' ? 'दि इन्टरनेसनल प्रेस' : 'The International Press'}
-                            </span>
+                            <svg viewBox="0 0 180 55" className="h-10 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                {/* Three squares with letters */}
+                                <rect x="0" y="0" width="40" height="40" rx="3" fill="white" />
+                                <rect x="45" y="0" width="40" height="40" rx="3" fill="white" />
+                                <rect x="90" y="0" width="40" height="40" rx="3" fill="white" />
+                                <text x="20" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="#171717">T</text>
+                                <text x="65" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="#171717">I</text>
+                                <text x="110" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="#171717">P</text>
+                                {/* Text below */}
+                                <text x="0" y="53" fontFamily="Inter, Arial, sans-serif" fontWeight="700" fontSize="9" letterSpacing="1" fill="white">THE INTERNATIONAL PRESS</text>
+                            </svg>
                         </Link>
                         <p className="text-neutral-400 text-sm leading-relaxed mb-6">
                             {t.tagline}

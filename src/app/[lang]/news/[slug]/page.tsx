@@ -1,5 +1,6 @@
 import { insforge } from '@/lib/insforge';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
@@ -173,7 +174,7 @@ export default async function ArticlePage({ params }: Props) {
                     <>
                         <ChevronRight className="w-3.5 h-3.5" />
                         <Link
-                            href={`/${lang}/category/${post.category?.slug || ''}`}
+                            href={`/${lang}/${post.category?.slug || ''}`}
                             className="hover:text-[var(--primary-600)] transition-colors"
                         >
                             {categoryName}
@@ -188,10 +189,13 @@ export default async function ArticlePage({ params }: Props) {
                 {/* ═══════════════ HERO IMAGE SECTION ═══════════════ */}
                 {post.featured_image ? (
                     <div className="relative h-[420px] md:h-[540px] rounded-3xl overflow-hidden mb-10 -mx-4 md:mx-0 shadow-2xl">
-                        <img
+                        <Image
                             src={post.featured_image}
                             alt={title}
-                            className="w-full h-full object-cover"
+                            fill
+                            priority
+                            sizes="100vw"
+                            className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
@@ -399,10 +403,12 @@ export default async function ArticlePage({ params }: Props) {
                                     {/* Image */}
                                     <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
                                         {rPost.featured_image ? (
-                                            <img
+                                            <Image
                                                 src={rPost.featured_image}
                                                 alt={rTitle}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 33vw"
+                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (
                                             <div className="w-full h-full bg-gradient-to-br from-[var(--primary-100)] to-[var(--primary-200)] flex items-center justify-center">

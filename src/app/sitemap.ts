@@ -8,18 +8,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const routes = [
         '',
         '/news',
+        // Main categories
+        '/nepal',
+        '/world',
+        '/politics',
+        '/economy',
+        '/business',
+        '/climate',
+        '/science',
+        '/opinion',
+        '/media',
+        // Nepal subcategories
+        '/nepal/politics',
+        '/nepal/economy',
+        '/nepal/opinion',
+        '/nepal/technology',
+        '/nepal/lifestyle',
+        // World subcategories
+        '/world/asia',
+        '/world/europe',
+        '/world/americas',
+        '/world/middle-east',
+        '/world/africa',
+        '/world/global-institutions',
+        // Media subcategories
+        '/media/watch',
+        '/media/listen',
     ].flatMap((route) => [
         {
             url: `${baseUrl}/en${route}`,
             lastModified: new Date(),
             changeFrequency: 'daily' as const,
-            priority: 1,
+            priority: route === '' ? 1 : 0.9,
         },
         {
             url: `${baseUrl}/ne${route}`,
             lastModified: new Date(),
             changeFrequency: 'daily' as const,
-            priority: 1,
+            priority: route === '' ? 1 : 0.9,
         },
     ])
 
