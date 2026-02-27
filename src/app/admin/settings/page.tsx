@@ -231,35 +231,7 @@ export default function AdminSettingsPage() {
                         )}
                     </div>
 
-                    {/* Security Card */}
-                    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3 bg-gray-50/50">
-                            <div className="p-2 bg-gray-100 text-gray-700 rounded-lg">
-                                <Lock size={20} />
-                            </div>
-                            <h2 className="font-bold text-gray-700">Security</h2>
-                        </div>
 
-                        <div className="p-6 space-y-4">
-                            <p className="text-sm text-gray-500">To change your password, we'll send a reset link to your email address.</p>
-
-                            {passwordMessage.text && (
-                                <div className={`px-4 py-3 rounded-lg text-xs font-medium flex items-center gap-2 ${passwordMessage.type === 'error' ? 'bg-red-50 text-red-700 border border-red-100' : 'bg-green-50 text-green-700 border border-green-100'}`}>
-                                    {passwordMessage.type === 'success' && <Check size={14} />}
-                                    {passwordMessage.text}
-                                </div>
-                            )}
-
-                            <button
-                                onClick={handleSendResetEmail}
-                                disabled={sendingReset}
-                                className="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                <Mail size={18} />
-                                {sendingReset ? 'Sending...' : 'Send Password Reset Email'}
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Right Column: Categories */}

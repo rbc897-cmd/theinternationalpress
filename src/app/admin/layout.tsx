@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { insforge } from '@/lib/insforge'
 import Image from 'next/image'
-import { LogOut, FileText, User, Settings, LayoutDashboard, Menu, X } from 'lucide-react'
+import { LogOut, FileText, User, Settings, LayoutDashboard, Menu, X, ShieldCheck } from 'lucide-react'
 import ToastProvider from '@/components/Toast'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -52,6 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
         { name: 'Posts', href: '/admin/posts', icon: FileText },
         { name: 'Settings', href: '/admin/settings', icon: Settings },
+        { name: 'Security', href: '/admin/security', icon: ShieldCheck },
     ]
 
     return (
