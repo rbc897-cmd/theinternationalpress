@@ -67,10 +67,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Sidebar */}
             <aside className={`
-                fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl md:shadow-none md:static transform transition-transform duration-300 ease-in-out border-r border-gray-100
+                fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl md:shadow-none md:static transform transition-transform duration-300 ease-in-out border-r border-gray-100 flex flex-col
                 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
-                <div className="h-24 flex items-center justify-center border-b border-gray-100 bg-white">
+                <div className="h-24 flex-shrink-0 flex items-center justify-center border-b border-gray-100 bg-white">
                     <div className="flex items-center justify-center w-full h-full p-4">
                         <Link href="/admin" className="block focus:outline-none">
                             <svg viewBox="0 0 190 55" className="h-10 w-auto hover:opacity-90 transition-opacity" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,15 +85,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         </Link>
                     </div>
                     <button
-                        className="ml-auto md:hidden text-gray-500"
+                        className="ml-auto md:hidden text-gray-500 absolute pr-4 right-0"
                         onClick={() => setSidebarOpen(false)}
                     >
                         <X size={24} />
                     </button>
                 </div>
 
-                <div className="p-4 space-y-1">
-                    <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-4">Menu</p>
+                <div className="flex-1 overflow-y-auto p-4 space-y-1">
+                    <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-2">Menu</p>
                     {navItems.map((item) => {
                         const Icon = item.icon
                         const isActive = pathname === item.href
@@ -114,20 +114,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     })}
                 </div>
 
-                <div className="absolute bottom-0 w-full p-4 border-t border-gray-100 bg-gray-50/50">
+                <div className="flex-shrink-0 w-full p-4 border-t border-gray-100 bg-gray-50/50">
                     <div className="flex items-center gap-3 px-2 mb-3">
                         {profile?.avatar_url ? (
                             <img
                                 src={profile.avatar_url}
                                 alt="Avatar"
-                                className="w-10 h-10 rounded-full object-cover border border-gray-200"
+                                className="w-10 h-10 rounded-full object-cover border border-gray-200 flex-shrink-0"
                             />
                         ) : (
-                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold">
+                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold flex-shrink-0">
                                 {profile?.full_name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase()}
                             </div>
                         )}
-                        <div className="overflow-hidden">
+                        <div className="overflow-hidden min-w-0">
                             <p className="text-sm font-semibold text-gray-700 truncate">{profile?.full_name || 'Admin'}</p>
                             <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                         </div>

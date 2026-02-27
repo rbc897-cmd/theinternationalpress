@@ -396,7 +396,7 @@ export default function PostForm({ post }: { post?: any }) {
                 </div>
             </div>
 
-            <div className="flex justify-end pt-5 gap-3">
+            <div className="flex flex-wrap justify-end pt-5 gap-3">
                 <button
                     type="submit"
                     disabled={loading}
