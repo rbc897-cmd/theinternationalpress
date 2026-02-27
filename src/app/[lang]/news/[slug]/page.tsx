@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 
 import { Clock, Calendar, ChevronRight, ArrowLeft, Facebook, Twitter, Share2, Link2, User } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 const getContent = (obj: any, lang: string, field: string) => {
     if (!obj) return '';
     return obj[`${field}_${lang}`] || obj[`${field}_en`] || '';
@@ -70,7 +72,7 @@ export default async function ArticlePage({ params }: Props) {
         .select(`
       *,
       category:categories(id, slug, name_en, name_ne),
-      author:profiles(full_name)
+      author:profiles(full_name, avatar_url)
     `)
         .or(`slug_en.eq.${slug},slug_ne.eq.${slug}`)
         .eq('status', 'published')
@@ -100,7 +102,7 @@ export default async function ArticlePage({ params }: Props) {
             .select(`
                 *,
                 category:categories(slug, name_en, name_ne),
-                author:profiles(full_name)
+                author:profiles(full_name, avatar_url)
             `)
             .eq('category_id', post.category_id)
             .eq('status', 'published')
@@ -119,7 +121,7 @@ export default async function ArticlePage({ params }: Props) {
             .select(`
                 *,
                 category:categories(slug, name_en, name_ne),
-                author:profiles(full_name)
+                author:profiles(full_name, avatar_url)
             `)
             .eq('status', 'published')
             .not('id', 'in', `(${excludeIds.join(',')})`)
@@ -258,9 +260,13 @@ export default async function ArticlePage({ params }: Props) {
                     {/* ── AUTHOR & META BAR ── */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 border-b border-neutral-200 mb-10">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary-500)] to-[var(--primary-700)] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-black/10">
-                                {(post.author?.full_name || 'A')[0].toUpperCase()}
-                            </div>
+                            {post.author?.avatar_url ? (
+                                <img src={post.author.avatar_url} alt={post.author.full_name || 'Author'} className="w-12 h-12 rounded-full object-cover shadow-lg shadow-black/10" />
+                            ) : (
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary-500)] to-[var(--primary-700)] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-black/10">
+                                    {(post.author?.full_name || 'A')[0].toUpperCase()}
+                                </div>
+                            )}
                             <div>
                                 <p className="font-semibold text-neutral-800 text-base">
                                     {post.author?.full_name || 'Admin'}

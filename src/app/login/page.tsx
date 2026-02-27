@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { insforge } from '@/lib/insforge'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -39,7 +40,7 @@ export default function LoginPage() {
             <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-12">
                 <div className="text-center text-white max-w-md">
                     <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center mx-auto mb-8">
-                        <span className="text-4xl font-bold text-white">T</span>
+                        <Image src="/images/logo.png" alt="The International Press" width={56} height={56} className="rounded-xl" />
                     </div>
                     <h1 className="text-4xl font-bold mb-4">The International Press</h1>
                     <p className="text-primary-200 text-lg leading-relaxed">
@@ -60,7 +61,7 @@ export default function LoginPage() {
                         {/* Mobile Logo */}
                         <div className="lg:hidden text-center mb-8">
                             <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--primary-600)] to-[var(--primary-800)] flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl font-bold text-white">T</span>
+                                <Image src="/images/logo.png" alt="The International Press" width={36} height={36} className="rounded-lg" />
                             </div>
                             <h2 className="text-xl font-bold text-neutral-800">The International Press Admin</h2>
                         </div>

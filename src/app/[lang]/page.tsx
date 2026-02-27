@@ -4,6 +4,8 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { MOCK_POSTS } from '@/lib/mock-data';
 
+export const dynamic = 'force-dynamic';
+
 const getContent = (obj: any, lang: string, field: string) => {
   if (!obj) return '';
   return obj[`${field}_${lang}`] || obj[`${field}_en`] || '';
@@ -33,7 +35,7 @@ export default async function Home({ params }: Props) {
     .select(`
       *,
       category:categories(slug, name_en, name_ne),
-      author:profiles(full_name)
+      author:profiles(full_name, avatar_url)
     `)
     .eq('status', 'published')
     .order('published_at', { ascending: false })
@@ -106,9 +108,13 @@ export default async function Home({ params }: Props) {
                 </p>
                 <div className="flex items-center gap-4 text-sm text-neutral-300">
                   <span className="flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs">
-                      {(featuredPost.author?.full_name || 'A')[0]}
-                    </span>
+                    {featuredPost.author?.avatar_url ? (
+                      <img src={featuredPost.author.avatar_url} alt={featuredPost.author.full_name || 'Author'} className="w-8 h-8 rounded-full object-cover" />
+                    ) : (
+                      <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs">
+                        {(featuredPost.author?.full_name || 'A')[0]}
+                      </span>
+                    )}
                     {featuredPost.author?.full_name || 'Admin'}
                   </span>
                   <span className="text-neutral-400">•</span>

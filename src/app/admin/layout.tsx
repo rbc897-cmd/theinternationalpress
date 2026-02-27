@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { insforge } from '@/lib/insforge'
+import Image from 'next/image'
 import { LogOut, FileText, User, Settings, LayoutDashboard, Menu, X } from 'lucide-react'
+import ToastProvider from '@/components/Toast'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter()
@@ -54,6 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     return (
         <div className="flex min-h-screen bg-[#F7F9FC]">
+            <ToastProvider />
             {/* Mobile Sidebar Overlay */}
             {sidebarOpen && (
                 <div
@@ -67,10 +70,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl md:shadow-none md:static transform transition-transform duration-300 ease-in-out border-r border-gray-100
                 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
-                <div className="h-16 flex items-center px-6 border-b border-gray-100">
-                    <div className="flex items-center gap-2 font-bold text-xl text-gray-900 tracking-tight">
-                        <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-white text-sm">T</div>
-                        The International Press
+                <div className="h-24 flex items-center justify-center border-b border-gray-100 bg-white">
+                    <div className="flex items-center justify-center w-full h-full p-4">
+                        <Link href="/admin" className="block focus:outline-none">
+                            <svg viewBox="0 0 190 55" className="h-10 w-auto hover:opacity-90 transition-opacity" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <rect x="50" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <rect x="95" y="0" width="40" height="40" rx="3" fill="#171717" />
+                                <text x="25" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">T</text>
+                                <text x="70" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">I</text>
+                                <text x="115" y="28" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontWeight="900" fontSize="24" fill="white">P</text>
+                                <text x="5" y="53" fontFamily="Inter, Arial, sans-serif" fontWeight="700" fontSize="9" letterSpacing="1" fill="#171717">THE INTERNATIONAL PRESS</text>
+                            </svg>
+                        </Link>
                     </div>
                     <button
                         className="ml-auto md:hidden text-gray-500"

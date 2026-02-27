@@ -38,7 +38,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
             .select(`
         *,
         category:categories(slug, name_en, name_ne),
-        author:profiles(full_name)
+        author:profiles(full_name, avatar_url)
       `)
             .eq('status', 'published')
             .or(`title_en.ilike.%${safeQuery}%,title_ne.ilike.%${safeQuery}%,excerpt_en.ilike.%${safeQuery}%,excerpt_ne.ilike.%${safeQuery}%`)

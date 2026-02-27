@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { insforge } from '@/lib/insforge'
-import { Plus, Trash2, Pencil, X, Check, User, Lock, List, Save, ShieldCheck } from 'lucide-react'
+import { Plus, Trash2, Pencil, X, Check, User, Lock, List, Save, ShieldCheck, Mail } from 'lucide-react'
 import ImageUploader from '@/components/ImageUploader'
+import { showToast } from '@/components/Toast'
 
 interface Category {
     id: string
@@ -21,8 +22,8 @@ export default function AdminSettingsPage() {
 
     const [profile, setProfile] = useState<{ id: string, full_name: string, avatar_url: string } | null>(null)
     const [profileLoading, setProfileLoading] = useState(true)
-    const [passwordData, setPasswordData] = useState({ newPassword: '', confirmPassword: '' })
     const [passwordMessage, setPasswordMessage] = useState({ type: '', text: '' })
+    const [sendingReset, setSendingReset] = useState(false)
 
     const fetchCategories = async () => {
         setLoading(true)
@@ -63,7 +64,8 @@ export default function AdminSettingsPage() {
     const handleProfileUpdate = async () => {
         if (!profile) return
 
-        const { error } = await insforge.database
+        // Update the profiles table (used by blog pages & sidebar)
+        const { error: dbError } = await insforge.database
             .from('profiles')
             .update({
                 full_name: profile.full_name,
@@ -71,40 +73,42 @@ export default function AdminSettingsPage() {
             })
             .eq('id', profile.id)
 
-        if (error) {
-            console.error('Profile update error:', error)
-            alert('Failed to update profile. Please try again.')
+        // Also update auth user profile (used by auth session)
+        const { error: authError } = await insforge.auth.setProfile({
+            name: profile.full_name,
+            avatar_url: profile.avatar_url
+        })
+
+        if (dbError || authError) {
+            console.error('Profile update error:', dbError || authError)
+            showToast('error', 'Update Failed', 'Could not update profile. Please try again.')
         } else {
-            alert('Profile updated successfully!')
+            showToast('success', 'Profile Updated', 'Your changes have been saved successfully.')
+            // Reload to refresh the sidebar with new profile data
+            setTimeout(() => window.location.reload(), 1500)
         }
     }
 
-    const handlePasswordUpdate = async (e: React.FormEvent) => {
-        e.preventDefault()
-        if (passwordData.newPassword !== passwordData.confirmPassword) {
-            setPasswordMessage({ type: 'error', text: 'Passwords do not match' })
-            return
-        }
-        if (passwordData.newPassword.length < 8) {
-            setPasswordMessage({ type: 'error', text: 'Password must be at least 8 characters' })
-            return
-        }
-        if (!/[A-Z]/.test(passwordData.newPassword) || !/[0-9]/.test(passwordData.newPassword)) {
-            setPasswordMessage({ type: 'error', text: 'Password must contain at least one uppercase letter and one number' })
+    const handleSendResetEmail = async () => {
+        const { data: { session } } = await insforge.auth.getCurrentSession()
+        const email = session?.user?.email
+        if (!email) {
+            setPasswordMessage({ type: 'error', text: 'Could not determine your email address.' })
             return
         }
 
-        const { error } = await (insforge.auth as any).updateUser({
-            password: passwordData.newPassword
-        })
+        setSendingReset(true)
+        setPasswordMessage({ type: '', text: '' })
+
+        const { error } = await insforge.auth.sendResetPasswordEmail({ email })
 
         if (error) {
-            console.error('Password update error:', error)
-            setPasswordMessage({ type: 'error', text: 'Failed to update password. Please try again.' })
+            console.error('Password reset email error:', error)
+            setPasswordMessage({ type: 'error', text: 'Failed to send reset email. Please try again.' })
         } else {
-            setPasswordMessage({ type: 'success', text: 'Password updated successfully' })
-            setPasswordData({ newPassword: '', confirmPassword: '' })
+            setPasswordMessage({ type: 'success', text: 'Password reset email sent! Check your inbox.' })
         }
+        setSendingReset(false)
     }
 
     const slugify = (text: string) =>
@@ -120,7 +124,7 @@ export default function AdminSettingsPage() {
 
         if (error) {
             console.error('Category add error:', error)
-            alert('Failed to add category. Please try again.')
+            showToast('error', 'Failed to Add', 'Could not add category. Please try again.')
         } else {
             setFormData({ name_en: '', name_ne: '', slug: '' })
             setShowAdd(false)
@@ -138,7 +142,7 @@ export default function AdminSettingsPage() {
 
         if (error) {
             console.error('Category update error:', error)
-            alert('Failed to update category. Please try again.')
+            showToast('error', 'Update Failed', 'Could not update category. Please try again.')
         } else {
             setEditingId(null)
             setFormData({ name_en: '', name_ne: '', slug: '' })
@@ -156,7 +160,7 @@ export default function AdminSettingsPage() {
 
         if (error) {
             console.error('Category delete error:', error)
-            alert('Failed to delete category. Please try again.')
+            showToast('error', 'Delete Failed', 'Could not delete category. Please try again.')
         } else {
             fetchCategories()
         }
@@ -236,26 +240,8 @@ export default function AdminSettingsPage() {
                             <h2 className="font-bold text-gray-700">Security</h2>
                         </div>
 
-                        <form onSubmit={handlePasswordUpdate} className="p-6 space-y-4">
-                            <div className="space-y-2">
-                                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">New Password</label>
-                                <input
-                                    type="password"
-                                    value={passwordData.newPassword}
-                                    onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
-                                    placeholder="Min 6 characters"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Confirm Password</label>
-                                <input
-                                    type="password"
-                                    value={passwordData.confirmPassword}
-                                    onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                                    className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
-                                />
-                            </div>
+                        <div className="p-6 space-y-4">
+                            <p className="text-sm text-gray-500">To change your password, we'll send a reset link to your email address.</p>
 
                             {passwordMessage.text && (
                                 <div className={`px-4 py-3 rounded-lg text-xs font-medium flex items-center gap-2 ${passwordMessage.type === 'error' ? 'bg-red-50 text-red-700 border border-red-100' : 'bg-green-50 text-green-700 border border-green-100'}`}>
@@ -265,13 +251,14 @@ export default function AdminSettingsPage() {
                             )}
 
                             <button
-                                type="submit"
-                                className="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98]"
+                                onClick={handleSendResetEmail}
+                                disabled={sendingReset}
+                                className="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <ShieldCheck size={18} />
-                                Update Password
+                                <Mail size={18} />
+                                {sendingReset ? 'Sending...' : 'Send Password Reset Email'}
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
