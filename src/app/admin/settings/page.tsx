@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { insforge } from '@/lib/insforge'
-import { Plus, Trash2, Pencil, X, Check, User, Lock, List, Save, ShieldCheck, Mail } from 'lucide-react'
-import ImageUploader from '@/components/ImageUploader'
+import { Plus, Trash2, Pencil, X, Check, List, Settings } from 'lucide-react'
 import { showToast } from '@/components/Toast'
 
 interface Category {
@@ -20,11 +19,6 @@ export default function AdminSettingsPage() {
     const [editingId, setEditingId] = useState<string | null>(null)
     const [formData, setFormData] = useState({ name_en: '', name_ne: '', slug: '' })
 
-    const [profile, setProfile] = useState<{ id: string, full_name: string, avatar_url: string } | null>(null)
-    const [profileLoading, setProfileLoading] = useState(true)
-    const [passwordMessage, setPasswordMessage] = useState({ type: '', text: '' })
-    const [sendingReset, setSendingReset] = useState(false)
-
     const fetchCategories = async () => {
         setLoading(true)
         const { data, error } = await insforge.database
@@ -38,78 +32,9 @@ export default function AdminSettingsPage() {
         setLoading(false)
     }
 
-    const fetchProfile = async () => {
-        setProfileLoading(true)
-        const { data: { session } } = await insforge.auth.getCurrentSession()
-
-        if (session?.user) {
-            const { data } = await insforge.database
-                .from('profiles')
-                .select('*')
-                .eq('id', session.user.id)
-                .single()
-
-            if (data) {
-                setProfile(data)
-            }
-        }
-        setProfileLoading(false)
-    }
-
     useEffect(() => {
         fetchCategories()
-        fetchProfile()
     }, [])
-
-    const handleProfileUpdate = async () => {
-        if (!profile) return
-
-        // Update the profiles table (used by blog pages & sidebar)
-        const { error: dbError } = await insforge.database
-            .from('profiles')
-            .update({
-                full_name: profile.full_name,
-                avatar_url: profile.avatar_url
-            })
-            .eq('id', profile.id)
-
-        // Also update auth user profile (used by auth session)
-        const { error: authError } = await insforge.auth.setProfile({
-            name: profile.full_name,
-            avatar_url: profile.avatar_url
-        })
-
-        if (dbError || authError) {
-            console.error('Profile update error:', dbError || authError)
-            showToast('error', 'Update Failed', 'Could not update profile. Please try again.')
-        } else {
-            showToast('success', 'Profile Updated', 'Your changes have been saved successfully.')
-            // Reload to refresh the sidebar with new profile data
-            setTimeout(() => window.location.reload(), 1500)
-        }
-    }
-
-    const handleSendResetEmail = async () => {
-        const { data: { session } } = await insforge.auth.getCurrentSession()
-        const email = session?.user?.email
-        if (!email) {
-            setPasswordMessage({ type: 'error', text: 'Could not determine your email address.' })
-            return
-        }
-
-        setSendingReset(true)
-        setPasswordMessage({ type: '', text: '' })
-
-        const { error } = await insforge.auth.sendResetPasswordEmail({ email })
-
-        if (error) {
-            console.error('Password reset email error:', error)
-            setPasswordMessage({ type: 'error', text: 'Failed to send reset email. Please try again.' })
-        } else {
-            setPasswordMessage({ type: 'success', text: 'Password reset email sent! Check your inbox.' })
-        }
-        setSendingReset(false)
-    }
 
     const slugify = (text: string) =>
         text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-')
@@ -172,7 +97,7 @@ export default function AdminSettingsPage() {
         setShowAdd(false)
     }
 
-    if (loading || profileLoading) return (
+    if (loading) return (
         <div className="flex items-center justify-center min-h-[60vh]">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
         </div>
@@ -188,50 +113,20 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                {/* Left Column: Profile & Security */}
-                <div className="space-y-6 lg:col-span-1">
-                    {/* Profile Card */}
-                    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                {/* Left Column: Security (Optional, can be used for other settings later) */}
+                <div className="space-y-6 lg:col-span-1 hidden lg:block">
+                    {/* Placeholder for future global settings (e.g., site name, timezone) */}
+                    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden opacity-50">
                         <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3 bg-gray-50/50">
                             <div className="p-2 bg-gray-100 text-gray-700 rounded-lg">
-                                <User size={20} />
+                                <Settings size={20} />
                             </div>
-                            <h2 className="font-bold text-gray-700">Profile</h2>
+                            <h2 className="font-bold text-gray-700">Global Settings</h2>
                         </div>
-
-                        {profile && (
-                            <div className="p-6 space-y-6">
-                                <div className="flex flex-col items-center">
-                                    <div className="mb-4">
-                                        <ImageUploader
-                                            value={profile.avatar_url || ''}
-                                            onChange={(url) => setProfile({ ...profile, avatar_url: url })}
-                                            variant="avatar"
-                                        />
-                                    </div>
-                                    <p className="text-xs text-center text-gray-400">Click avatar to upload new photo</p>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Full Name</label>
-                                    <input
-                                        type="text"
-                                        value={profile.full_name || ''}
-                                        onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-                                        className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-gray-200 focus:border-gray-400 outline-none transition-all text-sm"
-                                    />
-                                </div>
-                                <button
-                                    onClick={handleProfileUpdate}
-                                    className="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition font-medium text-sm shadow-sm hover:shadow active:scale-[0.98]"
-                                >
-                                    <Save size={18} />
-                                    Save Changes
-                                </button>
-                            </div>
-                        )}
+                        <div className="p-6 text-center text-sm text-gray-500">
+                            Global site configurations will appear here.
+                        </div>
                     </div>
-
-
                 </div>
 
                 {/* Right Column: Categories */}
